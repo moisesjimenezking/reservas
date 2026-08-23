@@ -116,7 +116,7 @@ class ReservacionController extends Controller
         // La madrugada (00:00 - 02:00) pertenece al servicio del sábado que
         // cruza al domingo: el sábado la incluye y el domingo la excluye.
         $dayOfWeek = (int) Carbon::parse($fecha)->format('N');
-        $nextDay = Carbon::parse($fecha)->addDay()->format('Y-m-d');
+        $nextDay   = Carbon::parse($fecha)->addDay()->format('Y-m-d');
 
         $sql = 'SELECT r.id, r.fecha_reserva, r.hora_inicio, r.hora_fin, r.cantidad_personas,
                     MIN(m.ubicacion) AS ubicacion,
@@ -132,18 +132,18 @@ class ReservacionController extends Controller
 
         if ($dayOfWeek === 6) {
             // Sábado: sus reservas más las de madrugada del domingo (< 03:00)
-            $sql .= '(r.fecha_reserva = :fecha OR (r.fecha_reserva = :fecha_domingo AND r.hora_inicio < :limite))';
-            $params['fecha'] = $fecha;
-            $params['fecha_domingo'] = $nextDay;
-            $params['limite'] = '03:00:00';
+            $sql                     .= '(r.fecha_reserva = :fecha OR (r.fecha_reserva = :fecha_domingo AND r.hora_inicio < :limite))';
+            $params['fecha']          = $fecha;
+            $params['fecha_domingo']  = $nextDay;
+            $params['limite']         = '03:00:00';
         } elseif ($dayOfWeek === 7) {
             // Domingo: solo desde las 03:00, la madrugada es del sábado
-            $sql .= 'r.fecha_reserva = :fecha AND r.hora_inicio >= :limite';
-            $params['fecha'] = $fecha;
-            $params['limite'] = '03:00:00';
+            $sql              .= 'r.fecha_reserva = :fecha AND r.hora_inicio >= :limite';
+            $params['fecha']   = $fecha;
+            $params['limite']  = '03:00:00';
         } else {
-            $sql .= 'r.fecha_reserva = :fecha';
-            $params['fecha'] = $fecha;
+            $sql             .= 'r.fecha_reserva = :fecha';
+            $params['fecha']  = $fecha;
         }
 
         // Dentro de cada ubicación: horario normal primero, madrugada al final
@@ -180,31 +180,31 @@ class ReservacionController extends Controller
         // Datos ligeros para la interactividad del croquis por hora en la vista
         $reservasJs = [];
         foreach ($rows as $row) {
-            $ubicacion = $row->ubicacion ?? '?';
+            $ubicacion                = $row->ubicacion ?? '?';
             $reservasJs[$ubicacion][] = [
-                'id' => $row->id,
+                'id'       => $row->id,
                 'mesa_ids' => array_filter(array_map('intval', explode(',', (string) $row->mesa_ids_csv))),
-                'inicio' => substr((string) $row->hora_inicio, 0, 5),
-                'fin' => substr((string) $row->hora_fin, 0, 5),
+                'inicio'   => substr((string) $row->hora_inicio, 0, 5),
+                'fin'      => substr((string) $row->hora_fin, 0, 5),
             ];
         }
 
         $mesasJs = [];
         foreach ($mesasPorUbicacion as $ubicacion => $items) {
-            $mesasJs[$ubicacion] = $items->map(fn ($m) => [
-                'id' => $m->id,
-                'numero' => $m->numero,
+            $mesasJs[$ubicacion] = $items->map(fn($m) => [
+                'id'        => $m->id,
+                'numero'    => $m->numero,
                 'capacidad' => $m->capacidad,
             ])->values()->all();
         }
 
         return view('reservas.listado', [
-            'fecha' => $fecha,
-            'labels' => $labels,
-            'secciones' => $secciones,
+            'fecha'      => $fecha,
+            'labels'     => $labels,
+            'secciones'  => $secciones,
             'reservasJs' => $reservasJs,
-            'mesasJs' => $mesasJs,
-            'total' => count($rows),
+            'mesasJs'    => $mesasJs,
+            'total'      => count($rows),
         ]);
     }
 
