@@ -28,13 +28,17 @@ cp .env.example .env
 ```bash
 docker compose up -d
 ```
+O en caso de tener docker-compose V1
+```bash
+docker-compose up -d
+```
 
 Esto levanta tres servicios:
 
 | Servicio    | Contenedor           | Puerto |
 |-------------|----------------------|--------|
-| App Laravel | `reservas_app`       | 8000   |
-| MySQL 8.0   | `reservas_db`        | 3306   |
+| App Laravel | `reservas_app`       | 8085   |
+| MySQL 8.0   | `reservas_db`        | 3307   |
 | Memcached   | `reservas_memcached` | 11211  |
 
 La primera vez tarda unos minutos (compila extensiones PHP e instala dependencias con Composer automáticamente).
@@ -73,7 +77,7 @@ docker exec reservas_app php artisan db:seed --class=MesaSeeder
 
 ### 7. Acceder
 
-Abre <http://localhost:8000> 
+Abre <http://localhost:8085> 
 
 ## Horarios de atención
 
@@ -104,4 +108,13 @@ docker compose up -d
 
 # ⚠️ Borrar TODO (incluye la base de datos)
 docker compose down -v
+```
+O en caso de tener docker-compose V1
+```bash
+# Detener y volver a levantar
+docker-compose down
+docker-compose up -d
+
+# ⚠️ Borrar TODO (incluye la base de datos)
+docker-compose down -v
 ```

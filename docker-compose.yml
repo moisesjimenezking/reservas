@@ -3,7 +3,7 @@ services:
     build: .
     container_name: reservas_app
     ports:
-      - "8000:8000"
+      - "8085:8000"
     volumes:
       - .:/var/www/html
     depends_on:
@@ -28,7 +28,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: reservas
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
@@ -41,7 +41,7 @@ services:
     image: memcached:1.6-alpine
     container_name: reservas_memcached
     ports:
-      - "11211:11211"
+      - "11212:11211"
 
 volumes:
   db_data:
