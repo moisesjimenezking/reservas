@@ -40,6 +40,9 @@ Esto levanta tres servicios:
 
 La primera vez tarda unos minutos (compila extensiones PHP e instala dependencias con Composer automáticamente).
 
+Después de finalizar, se recomienda esperar aproximadamente 30 segundos antes de continuar, para garantizar 
+que todos los servicios estén completamente iniciados, en línea y correctamente conectados.
+
 ### 4. Generar la clave de la aplicación
 
 ```bash
