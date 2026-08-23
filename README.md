@@ -14,7 +14,7 @@ Sistema de reservas de mesas para restaurante, construido con Laravel + Docker (
 ### 1. Clonar el proyecto
 
 ```bash
-git clone <url-del-repositorio> reservas
+git clone https://github.com/moisesjimenezking/reservas.git reservas
 cd reservas
 ```
 
