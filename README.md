@@ -14,8 +14,7 @@ Sistema de reservas de mesas para restaurante, construido con Laravel + Docker (
 ### 1. Clonar el proyecto
 
 ```bash
-git clone https://github.com/moisesjimenezking/reservas.git reservas
-cd reservas
+git clone https://github.com/moisesjimenezking/reservas.git && cd reservas
 ```
 
 ### 2. Copiar el archivo de entorno
@@ -60,8 +59,7 @@ Crea las tablas: `users`, `mesas`, `reservas`.
 ### 6. Cargar los datos base (seeders)
 
 ```bash
-docker exec reservas_app php artisan db:seed --class=UserSeeder
-docker exec reservas_app php artisan db:seed --class=MesaSeeder
+docker exec reservas_app php artisan db:seed --class=UserSeeder && docker exec reservas_app php artisan db:seed --class=MesaSeeder
 ```
 
 - **UserSeeder**: 10 usuarios de prueba. Contraseña para todos: `password`
