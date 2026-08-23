@@ -43,8 +43,15 @@ class CacheManager
             'start' => $startMinutes,
             'end' => $endMinutes,
         ];
-        // TTL: next day 00:00 from the end date
-        $ttl = (new \Carbon\Carbon($fecha))->addDays(2)->startOfDay()->timestamp - now()->timestamp;
+
+        $ttl = (
+            (new \Carbon\Carbon($fecha))
+                ->addDays(2)
+                ->startOfDay()
+                ->timestamp - now()
+                ->timestamp
+        );
+
         Cache::put($key, $reservations, max($ttl, 3600));
     }
 

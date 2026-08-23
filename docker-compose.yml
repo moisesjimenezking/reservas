@@ -1,47 +1,47 @@
 services:
-  app:
-    build: .
-    container_name: reservas_app
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      db:
-        condition: service_healthy
-      memcached:
-        condition: service_started
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=reservas
-      - DB_USERNAME=root
-      - DB_PASSWORD=rootpassword
-      - MEMCACHED_HOST=memcached
-      - MEMCACHED_PORT=11211
+    app:
+        build: .
+        container_name: reservas_app
+        ports:
+        - "8000:8000"
+        volumes:
+        - .:/var/www/html
+        depends_on:
+        db:
+            condition: service_healthy
+        memcached:
+            condition: service_started
+        environment:
+        - DB_HOST=db
+        - DB_PORT=3306
+        - DB_DATABASE=reservas
+        - DB_USERNAME=root
+        - DB_PASSWORD=rootpassword
+        - MEMCACHED_HOST=memcached
+        - MEMCACHED_PORT=11211
 
-  db:
-    image: mysql:8.0
-    container_name: reservas_db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: reservas
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
+    db:
+        image: mysql:8.0
+        container_name: reservas_db
+        restart: always
+        environment:
+        MYSQL_ROOT_PASSWORD: rootpassword
+        MYSQL_DATABASE: reservas
+        ports:
+        - "3306:3306"
+        volumes:
+        - db_data:/var/lib/mysql
+        healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+        interval: 5s
+        timeout: 5s
+        retries: 10
 
-  memcached:
-    image: memcached:1.6-alpine
-    container_name: reservas_memcached
-    ports:
-      - "11211:11211"
+    memcached:
+        image: memcached:1.6-alpine
+        container_name: reservas_memcached
+        ports:
+        - "11211:11211"
 
 volumes:
-  db_data:
+    db_data:
