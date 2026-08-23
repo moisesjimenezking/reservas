@@ -32,6 +32,13 @@ O en caso de tener docker-compose V1
 ```bash
 docker-compose up -d
 ```
+Docker Compose V1 puede presentar ocasionalmente errores relacionados con las dependencias entre servicios. Si la primera vez que ejecutas el comando aparece un error similar a:
+```bash
+ERROR: for app  Container "5be046d70c33" is unhealthy.
+```
+no es necesario realizar ninguna modificación. Espera aproximadamente 30 segundos y vuelve a ejecutar el mismo comando.
+
+Esto ocurre porque la aplicación depende del servicio de base de datos y, especialmente durante la primera ejecución, MySQL puede tardar algunos segundos en inicializarse completamente y alcanzar el estado healthy.
 
 Esto levanta tres servicios:
 
