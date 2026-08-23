@@ -59,7 +59,11 @@ Crea las tablas: `users`, `mesas`, `reservas`.
 ### 6. Cargar los datos base (seeders)
 
 ```bash
-docker exec reservas_app php artisan db:seed --class=UserSeeder && docker exec reservas_app php artisan db:seed --class=MesaSeeder
+docker exec reservas_app php artisan db:seed --class=UserSeeder
+```
+
+```bash
+docker exec reservas_app php artisan db:seed --class=MesaSeeder
 ```
 
 - **UserSeeder**: 10 usuarios de prueba. Contraseña para todos: `password`
